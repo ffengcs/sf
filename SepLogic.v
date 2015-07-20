@@ -1,0 +1,237 @@
+Require Export Imp.
+
+(* First we define syntax of the language *)
+
+(* We could reuse aexp and bexp defined for Imp. *)
+
+(* Redefine commands here. To distinguish them 
+   from Imp commands, we call them scom *)
+(* You need to change it into an inductive definition *)
+Inductive scom : Type :=
+  |SSkip : scom 
+  |SAss : id -> aexp -> scom 
+  |SMut : aexp -> aexp -> scom 
+  |SCons : id -> aexp -> aexp ->scom 
+  |SDispose : aexp -> scom 
+  |SSeq : scom -> scom -> scom
+  |SIf : bexp -> scom -> scom -> scom
+  |SWhile : bexp -> scom -> scom.
+
+
+(* Program states, which is called sstate *)
+Definition store := id -> nat.
+
+(* if heap maps a natural number (address) to
+   None, we say the address is not a valid address,
+   or it is not in the domain of the heap *)
+Definition heap := nat -> option nat.
+
+(* Define an empty heap, which contains no memory cells *)
+Check heap.
+Definition emp_heap : heap := fun _ => None.
+
+Definition in_dom (l: nat) (h: heap) : Prop :=
+  exists n, h l = Some n.
+
+Definition not_in_dom (l: nat) (h: heap) : Prop :=
+  h l = None.
+
+Theorem in_not_in_dec : 
+  forall l h, {in_dom l h} + {not_in_dom l h}.
+Proof.
+  intros.
+  destruct (h l) eqn : HL.
+  Case "in_dom".
+    left. unfold in_dom. exists n. apply HL.
+  Case "not_in_dom".
+    right. unfold not_in_dom. apply HL.
+Qed.
+
+(* h1 and h2 have disjoint domain *)
+Definition disjoint (h1 h2: heap) : Prop := 
+ forall l , (in_dom l h1 -> not_in_dom l h2)/\
+            (in_dom l h2 -> not_in_dom l h1).
+
+(* union of two heaps *)
+Definition h_union (h1 h2: heap) : heap :=
+  fun l => 
+    if (in_not_in_dec l h1) then h1 l else h2 l.
+
+(* h1 is a subset of h2 *)
+Definition h_subset (h1 h2: heap) : Prop := 
+ forall l, in_dom l h1 -> in_dom l h2.
+
+(* store update *)
+Definition st_update (s: store) (x: id) (n: nat) : store :=
+  fun x' => if eq_id_dec x x' then n else s x'.
+
+(* heap update *)
+Definition h_update (h: heap) (l: nat) (n: nat) : heap :=
+  fun l' => if eq_nat_dec l l' then Some n else h l'.
+Definition h_dispose (h:heap)(l:nat):heap :=
+  fun l' => if eq_nat_dec l l' then None else h l'.
+
+Definition sstate := (store * heap) %type.
+
+(* since program may abort, we extend our state
+   definition to add a special state Abt *)
+Inductive ext_state : Type :=
+  St:  sstate -> ext_state    (* normal state *)
+| Abt: ext_state.             (* abort *)
+
+
+(* Next we define the operational semantics *)
+
+(* big-step semantics. You should change it into 
+   an inductive definition *)
+Fixpoint saeval (sst : sstate) (a : aexp) : nat :=
+  match a with
+  | ANum n => n
+  | AId x => (fst sst) x                                        (* <----- NEW *)
+  | APlus a1 a2 => (saeval sst a1) + (saeval sst a2)
+  | AMinus a1 a2  => (saeval sst a1) - (saeval sst a2)
+  | AMult a1 a2 => (saeval sst a1) * (saeval sst a2)
+  end.
+
+Fixpoint sbeval (sst : sstate) (b : bexp) : bool :=
+  match b with
+  | BTrue       => true
+  | BFalse      => false
+  | BEq a1 a2   => beq_nat (saeval sst a1) (saeval sst a2)
+  | BLe a1 a2   => ble_nat (saeval sst a1) (saeval sst a2)
+  | BNot b1     => negb (sbeval sst b1)
+  | BAnd b1 b2  => andb (sbeval sst b1) (sbeval sst b2)
+  end.
+SearchAbout fst.
+(*
+Definition big_step: 
+   scom * sstate -> ext_state -> Prop := admit.*)
+Inductive big_step: scom*sstate -> ext_state -> Prop :=
+  |E_Skip : forall sst , 
+      big_step (SSkip,sst) (St sst)
+  |E_SAss : forall x a sst,
+      big_step ((SAss x a),sst) (St ((st_update (fst sst) x (saeval sst a)) ,(snd sst)))
+  |E_SMut : forall a1 a2 sst,
+      in_dom (saeval sst a1) (snd sst) ->
+      big_step ((SMut a1 a2),sst) (St ((fst sst),(h_update (snd sst)(saeval sst a1)(saeval sst a2))))
+  |E_SMutAbort : forall a1 a2 sst,
+      not_in_dom (saeval sst a1)(snd sst) ->
+      big_step ((SMut a1 a2),sst) Abt
+  |E_SCons : forall x a1 a2 sst n,
+      not_in_dom n (snd sst)->
+      not_in_dom (n+1) (snd sst)->
+      big_step ((SCons x a1 a2),sst) (St((st_update (fst sst) x n ),
+                    (h_update(h_update (snd sst) n (saeval sst a1)) (n+1) (saeval sst a2))))
+  |E_Dispose : forall a sst,
+      in_dom (saeval sst a)(snd sst) ->
+      big_step ((SDispose a),sst)(St((fst sst),(h_dispose (snd sst) (saeval sst a))))
+  |E_DisposeAbort : forall a sst,
+      not_in_dom (saeval sst a)(snd sst) ->
+      big_step ((SDispose a),sst) Abt
+  |E_SSeq : forall sst sst' e_sst c1 c2,
+      big_step (c1,sst) (St sst') ->
+      big_step (c2,sst') e_sst ->
+      big_step (SSeq c1 c2,sst) e_sst
+  |E_SSeqAbort : forall sst c1 c2,
+      big_step (c1,sst) Abt -> 
+      big_step (SSeq c1 c2,sst) Abt
+  |E_SIfFalse : forall b c1 c2 sst e_sst,
+      sbeval sst b = false ->
+      big_step (c2,sst) e_sst ->
+      big_step (SIf b c1 c2,sst) e_sst
+  |E_SIfTrue : forall b c1 c2 sst e_sst,
+      sbeval sst b = true ->
+      big_step (c1,sst) e_sst ->
+      big_step (SIf b c1 c2,sst) e_sst
+  |E_SWhileEnd : forall b c sst,
+      sbeval sst b =false ->
+      big_step (SWhile b c,sst) (St sst)
+  |E_SWhileLoop : forall b c sst sst' e_sst,
+      sbeval sst b = true ->
+      big_step (c,sst) (St sst')->
+      big_step (SWhile b c, sst') e_sst ->
+      big_step (SWhile b c, sst) e_sst
+  |E_SWhileLoopAbort : forall b c sst,
+      sbeval sst b = true ->
+      big_step (c,sst) Abt ->
+      big_step (SWhile b c, sst) Abt
+.
+
+(* small-step semantics. Should be inductive too *)
+
+Inductive small_step : scom * ext_state ->scom * ext_state ->Prop :=
+  |S_AssStep : forall x a n sst,
+     saeval sst a = n ->
+     small_step (SAss x a,St sst)(SAss x (ANum n),St sst)
+  |S_Ass :  forall x n sst,
+     small_step (SAss x (ANum n),St sst)(SSkip,St(st_update (fst sst) x n,snd sst))
+  |S_SMutStep : forall a1 a2 n1 n2 sst,
+     saeval sst a1 = n1->
+     saeval sst a2 = n2->
+     small_step (SMut a1 a2,St sst)(SMut (ANum n1) (ANum n2),St sst)
+  |S_SMut : forall n1 n2 sst,
+     in_dom n1 (snd sst) -> 
+     small_step (SMut (ANum n1)(ANum n2),St sst)(SSkip,St(fst sst,h_update (snd sst) n1 n2))
+  |S_SMutAbt : forall n1 n2 sst,
+     not_in_dom n1 (snd sst) ->
+     small_step (SMut (ANum n1)(ANum n2), St sst)(SSkip, Abt)
+  |S_SConsStep : forall x a1 a2 n1 n2 sst,
+     saeval sst a1 = n1 ->
+     saeval sst a2 = n2 ->
+     small_step (SCons x a1 a2,St sst)(SCons x (ANum n1)(ANum n2),St sst)
+  |S_SConStep : forall x n1 n2 n sst,
+     not_in_dom n (snd sst) ->
+     not_in_dom (n+1) (snd sst) ->
+     small_step (SCons x (ANum n1) (ANum n2),St sst)
+        (SSkip,St (st_update (fst sst) x n,h_update (h_update (snd sst) n n1) (n+1) n2))
+  |S_DisposeStep : forall a n sst,
+     saeval sst a = n ->
+     small_step (SDispose a,St sst) (SDispose (ANum n),St sst)
+  |S_Dispose : forall n sst,
+     in_dom n (snd sst)->
+     small_step (SDispose (ANum n),St sst)(SSkip,St(fst sst,(h_dispose(snd sst)n)))
+  |S_SSeqStep : forall c1 c2 c1' sst sst',
+     small_step (c1,St sst) (c1',St sst) ->
+     small_step (SSeq c1 c2,St sst)(SSeq c1' c2,St sst')
+  |S_SSeq : forall c2 sst,
+     small_step (SSeq SSkip c2,St sst) (c2,St sst)
+  |S_SSeqAbt : forall c2,
+     small_step (SSeq SSkip c2,Abt) (SSkip,Abt)
+  |S_SIfFalse : forall b  c1 c2 sst,
+     sbeval sst b = false ->
+     small_step (SIf b c1 c2,St sst)(c2,St sst)
+  |S_SIfTure : forall b c1 c2 sst,
+     sbeval sst b = true ->
+     small_step (SIf b c1 c2,St sst)(c2,St sst)
+  |S_SWhile : forall b c sst,
+     small_step (SWhile b c,St sst)(SIf b (SSeq c (SWhile b c)) SSkip,St sst)
+.
+(*Definition small_step: 
+   scom * ext_state -> scom * ext_state -> Prop 
+  := admit.*)
+
+
+(** Assertions **)
+Definition sass := sstate -> Prop.
+
+(* define semantics of assertion emp *)
+Definition emp : sass := admit.
+
+(* assertion l |-> n *)
+Definition pto (l: nat) (n: nat) : sass := admit.
+Notation "l '|->' n" := (pto l n) (at level 60).
+
+(* p * q *)
+Definition star (p q : sass) : sass := admit.
+Notation "p '**' q" := (star p q) (at level 70).
+
+(* p --* q *)
+Definition simp (p q: sass) : sass := admit.
+Notation "p '--*' q" := (simp p q) (at level 80).
+
+
+Definition pure (p: sass) : Prop := admit.
+
+Definition precise (p: sass) : Prop := admit.
+
+Definition intuitionistic (p: sass) : Prop := admit.

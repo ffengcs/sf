@@ -1,0 +1,285 @@
+DIGEST 160455765475b57b0119966b0e7bd63b
+FMoreInd
+R52:63 ProofObjects <> <> lib
+R503:509 Coq.Init.Datatypes <> nat_ind scheme
+prf 1061:1069 <> mult_0_r'
+R1082:1084 Coq.Init.Datatypes <> nat ind
+R1095:1097 Coq.Init.Logic <> :type_scope:x_'='_x not
+R1091:1093 Basics <> :nat_scope:x_'*'_x not
+R1090:1090 MoreInd <> n var
+R1116:1122 Coq.Init.Datatypes <> nat_ind scheme
+R1116:1122 Coq.Init.Datatypes <> nat_ind scheme
+prf 2898:2908 <> plus_one_r'
+R2921:2923 Coq.Init.Datatypes <> nat ind
+R2934:2936 Coq.Init.Logic <> :type_scope:x_'='_x not
+R2930:2932 Basics <> :nat_scope:x_'+'_x not
+R2929:2929 MoreInd <> n var
+R2937:2937 Coq.Init.Datatypes <> S constr
+R2939:2939 MoreInd <> n var
+R2957:2963 Coq.Init.Datatypes <> nat_ind scheme
+R2957:2963 Coq.Init.Datatypes <> nat_ind scheme
+ind 4093:4097 <> yesno
+constr 4113:4115 <> yes
+constr 4129:4130 <> no
+R4119:4123 MoreInd <> yesno ind
+R4134:4138 MoreInd <> yesno ind
+R4148:4156 MoreInd <> yesno_ind scheme
+ind 4576:4578 <> rgb
+constr 4594:4596 <> red
+constr 4608:4612 <> green
+constr 4624:4627 <> blue
+R4600:4602 MoreInd <> rgb ind
+R4616:4618 MoreInd <> rgb ind
+R4631:4633 MoreInd <> rgb ind
+R4642:4648 MoreInd <> rgb_ind scheme
+ind 4916:4922 <> natlist
+constr 4938:4941 <> nnil
+constr 4957:4961 <> ncons
+R4945:4951 MoreInd <> natlist ind
+R4983:4989 MoreInd <> natlist ind
+R4972:4978 MoreInd <> natlist ind
+R4965:4967 Coq.Init.Datatypes <> nat ind
+R4999:5009 MoreInd <> natlist_ind scheme
+ind 5380:5387 <> natlist1
+constr 5403:5407 <> nnil1
+constr 5424:5429 <> nsnoc1
+R5411:5418 MoreInd <> natlist1 ind
+R5452:5459 MoreInd <> natlist1 ind
+R5445:5447 Coq.Init.Datatypes <> nat ind
+R5433:5440 MoreInd <> natlist1 ind
+R5468:5479 MoreInd <> natlist1_ind scheme
+ind 6572:6578 <> byntree
+constr 6593:6598 <> bempty
+constr 6615:6619 <> bleaf
+constr 6644:6650 <> nbranch
+R6602:6608 MoreInd <> byntree ind
+R6633:6639 MoreInd <> byntree ind
+R6624:6628 MoreInd <> yesno ind
+R6685:6691 MoreInd <> byntree ind
+R6674:6680 MoreInd <> byntree ind
+R6663:6669 MoreInd <> byntree ind
+R6654:6658 MoreInd <> yesno ind
+R6700:6710 MoreInd <> byntree_ind scheme
+ind 7317:7321 <> ExSet
+constr 7336:7339 <> con1
+constr 7357:7360 <> con2
+R7348:7352 MoreInd <> ExSet ind
+R7342:7345 Basics <> bool ind
+R7375:7379 MoreInd <> ExSet ind
+R7368:7372 MoreInd <> ExSet ind
+R7363:7365 Coq.Init.Datatypes <> nat ind
+R7388:7396 MoreInd <> ExSet_ind scheme
+ind 8718:8721 <> tree
+constr 8746:8749 <> leaf
+constr 8769:8772 <> node
+R8758:8761 MoreInd <> tree ind
+R8796:8799 MoreInd <> tree ind
+R8786:8789 MoreInd <> tree ind
+R8776:8779 MoreInd <> tree ind
+R8810:8817 MoreInd <> tree_ind scheme
+ind 9453:9458 <> mytype
+constr 9478:9484 <> constr1
+constr 9501:9507 <> constr2
+constr 9526:9532 <> constr3
+R9489:9494 MoreInd <> mytype ind
+R9514:9519 MoreInd <> mytype ind
+R9509:9511 Coq.Init.Datatypes <> nat ind
+R9549:9554 MoreInd <> mytype ind
+R9544:9546 Coq.Init.Datatypes <> nat ind
+R9534:9539 MoreInd <> mytype ind
+R9565:9574 MoreInd <> mytype_ind scheme
+ind 10042:10044 <> foo
+constr 10067:10069 <> bar
+constr 10085:10087 <> baz
+constr 10103:10106 <> quux
+R10074:10076 MoreInd <> foo ind
+R10092:10094 MoreInd <> foo ind
+R10124:10126 MoreInd <> foo ind
+R10114:10116 MoreInd <> foo ind
+R10109:10111 Coq.Init.Datatypes <> nat ind
+R10139:10145 MoreInd <> foo_ind scheme
+ind 10258:10261 <> foo'
+constr 10286:10287 <> C1
+constr 10322:10323 <> C2
+R10311:10314 MoreInd <> foo' ind
+R10301:10304 MoreInd <> foo' ind
+R10291:10294 Poly <> list ind
+R10327:10330 MoreInd <> foo' ind
+R10817:10824 MoreInd <> foo'_ind scheme
+def 11690:11694 <> P_m0r
+R11699:11701 Coq.Init.Datatypes <> nat ind
+R11722:11724 Coq.Init.Logic <> :type_scope:x_'='_x not
+R11718:11720 Basics <> :nat_scope:x_'*'_x not
+R11717:11717 MoreInd <> n var
+def 11771:11776 <> P_m0r'
+R11780:11782 Coq.Init.Datatypes <> nat ind
+R11810:11812 Coq.Init.Logic <> :type_scope:x_'='_x not
+R11806:11808 Basics <> :nat_scope:x_'*'_x not
+R11805:11805 MoreInd <> n var
+prf 11905:11914 <> mult_0_r''
+R11927:11929 Coq.Init.Datatypes <> nat ind
+R11935:11939 MoreInd <> P_m0r def
+R11941:11941 MoreInd <> n var
+R11959:11965 Coq.Init.Datatypes <> nat_ind scheme
+R11959:11965 Coq.Init.Datatypes <> nat_ind scheme
+R12093:12097 MoreInd <> P_m0r def
+R12114:12118 MoreInd <> P_m0r def
+prf 14014:14024 <> plus_assoc'
+R14043:14045 Coq.Init.Datatypes <> nat ind
+R14062:14064 Coq.Init.Logic <> :type_scope:x_'='_x not
+R14052:14055 Basics <> :nat_scope:x_'+'_x not
+R14061:14061 Basics <> :nat_scope:x_'+'_x not
+R14051:14051 MoreInd <> n var
+R14057:14059 Basics <> :nat_scope:x_'+'_x not
+R14056:14056 MoreInd <> m var
+R14060:14060 MoreInd <> p var
+R14065:14065 Basics <> :nat_scope:x_'+'_x not
+R14071:14074 Basics <> :nat_scope:x_'+'_x not
+R14067:14069 Basics <> :nat_scope:x_'+'_x not
+R14066:14066 MoreInd <> n var
+R14070:14070 MoreInd <> m var
+R14075:14075 MoreInd <> p var
+prf 14976:14985 <> plus_comm'
+R15002:15004 Coq.Init.Datatypes <> nat ind
+R15015:15017 Coq.Init.Logic <> :type_scope:x_'='_x not
+R15011:15013 Basics <> :nat_scope:x_'+'_x not
+R15010:15010 MoreInd <> n var
+R15014:15014 MoreInd <> m var
+R15019:15021 Basics <> :nat_scope:x_'+'_x not
+R15018:15018 MoreInd <> m var
+R15022:15022 MoreInd <> n var
+R15095:15102 Induction <> plus_0_r thm
+R15095:15102 Induction <> plus_0_r thm
+R15187:15195 Induction <> plus_n_Sm thm
+R15187:15195 Induction <> plus_n_Sm thm
+prf 15610:15620 <> plus_comm''
+R15637:15639 Coq.Init.Datatypes <> nat ind
+R15650:15652 Coq.Init.Logic <> :type_scope:x_'='_x not
+R15646:15648 Basics <> :nat_scope:x_'+'_x not
+R15645:15645 MoreInd <> n var
+R15649:15649 MoreInd <> m var
+R15654:15656 Basics <> :nat_scope:x_'+'_x not
+R15653:15653 MoreInd <> m var
+R15657:15657 MoreInd <> n var
+R15790:15797 Induction <> plus_0_r thm
+R15790:15797 Induction <> plus_0_r thm
+R15871:15879 Induction <> plus_n_Sm thm
+R15871:15879 Induction <> plus_n_Sm thm
+def 16275:16288 <> plus_assoc_Def
+R16300:16302 Coq.Init.Datatypes <> nat ind
+R16295:16297 Coq.Init.Datatypes <> nat ind
+R16290:16292 Coq.Init.Datatypes <> nat ind
+R16336:16338 Coq.Init.Logic <> :type_scope:x_'='_x not
+R16326:16329 Basics <> :nat_scope:x_'+'_x not
+R16335:16335 Basics <> :nat_scope:x_'+'_x not
+R16325:16325 MoreInd <> n var
+R16331:16333 Basics <> :nat_scope:x_'+'_x not
+R16330:16330 MoreInd <> m var
+R16334:16334 MoreInd <> p var
+R16339:16339 Basics <> :nat_scope:x_'+'_x not
+R16345:16348 Basics <> :nat_scope:x_'+'_x not
+R16341:16343 Basics <> :nat_scope:x_'+'_x not
+R16340:16340 MoreInd <> n var
+R16344:16344 MoreInd <> m var
+R16349:16349 MoreInd <> p var
+def 16363:16375 <> plus_comm_Def
+R16382:16384 Coq.Init.Datatypes <> nat ind
+R16377:16379 Coq.Init.Datatypes <> nat ind
+R16408:16408 Coq.Init.Logic <> :type_scope:x_'='_x not
+R16406:16406 Basics <> :nat_scope:x_'+'_x not
+R16405:16405 MoreInd <> n var
+R16407:16407 MoreInd <> m var
+R16410:16410 Basics <> :nat_scope:x_'+'_x not
+R16409:16409 MoreInd <> m var
+R16411:16411 MoreInd <> n var
+prf 16800:16823 <> one_not_beautiful_FAILED
+R16826:16827 Logic <> :type_scope:'~'_x not
+R16828:16836 Prop <> beautiful ind
+prf 17706:17722 <> one_not_beautiful
+R17744:17745 Logic <> :type_scope:'~'_x not
+R17746:17754 Prop <> beautiful ind
+R17756:17756 MoreInd <> n var
+R17736:17738 Coq.Init.Logic <> :type_scope:x_'='_x not
+R17735:17735 MoreInd <> n var
+R18296:18303 Induction <> plus_0_r thm
+R18296:18303 Induction <> plus_0_r thm
+prf 18548:18565 <> one_not_beautiful'
+R18568:18569 Logic <> :type_scope:'~'_x not
+R18570:18578 Prop <> beautiful ind
+R19176:19183 Induction <> plus_0_r thm
+R19176:19183 Induction <> plus_0_r thm
+R30100:30111 Prop <> gorgeous_ind scheme
+prf 31223:31242 <> gorgeous__beautiful'
+R31270:31278 Prop <> beautiful ind
+R31280:31280 MoreInd <> n var
+R31256:31263 Prop <> gorgeous ind
+R31265:31265 MoreInd <> n var
+R31310:31321 Prop <> gorgeous_ind scheme
+R31310:31321 Prop <> gorgeous_ind scheme
+R31352:31354 Prop <> b_0 constr
+R31352:31354 Prop <> b_0 constr
+R31404:31408 Prop <> b_sum constr
+R31404:31408 Prop <> b_sum constr
+R31417:31419 Prop <> b_3 constr
+R31417:31419 Prop <> b_3 constr
+R31486:31490 Prop <> b_sum constr
+R31486:31490 Prop <> b_sum constr
+R31499:31501 Prop <> b_5 constr
+R31499:31501 Prop <> b_5 constr
+ind 32108:32109 <> le
+constr 32140:32143 <> le_n
+constr 32158:32161 <> le_S
+R32114:32116 Coq.Init.Datatypes <> nat ind
+R32121:32123 Coq.Init.Datatypes <> nat ind
+R32147:32148 MoreInd <> le ind
+R32188:32189 MoreInd <> le ind
+R32194:32194 Coq.Init.Datatypes <> S constr
+R32196:32196 MoreInd <> m var
+R32176:32177 MoreInd <> le ind
+R32181:32181 MoreInd <> m var
+R32224:32225 MoreInd <> le ind
+not 32211 <> ::x_'<='_x
+R32372:32377 MoreInd <> le_ind scheme
+ind 35829:35831 <> eq'
+constr 35867:35877 <> refl_equal'
+R35845:35845 MoreInd <> X var
+R35881:35883 MoreInd <> eq' ind
+R36192:36198 MoreInd <> eq'_ind scheme
+R37140:37146 Logic <> and_ind scheme
+R38547:38552 Logic <> ex_ind scheme
+R39603:39609 Coq.Init.Datatypes <> nat_ind scheme
+def 41696:41703 <> nat_ind2
+R41724:41726 Coq.Init.Datatypes <> nat ind
+R41822:41824 Coq.Init.Datatypes <> nat ind
+R41828:41828 MoreInd <> P var
+R41830:41830 MoreInd <> n var
+R41779:41781 Coq.Init.Datatypes <> nat ind
+R41791:41791 MoreInd <> P var
+R41794:41794 Coq.Init.Datatypes <> S constr
+R41796:41796 Coq.Init.Datatypes <> S constr
+R41798:41798 MoreInd <> n var
+R41784:41784 MoreInd <> P var
+R41786:41786 MoreInd <> n var
+R41755:41755 MoreInd <> P var
+R41743:41743 MoreInd <> P var
+R41902:41904 Coq.Init.Datatypes <> nat ind
+R41916:41916 MoreInd <> n var
+R41958:41959 MoreInd <> P0 var
+R41996:41997 MoreInd <> P1 var
+R42029:42029 Coq.Init.Datatypes <> S constr
+R42032:42032 Coq.Init.Datatypes <> S constr
+R42041:42043 MoreInd <> PSS var
+R42049:42049 MoreInd <> f var
+prf 42451:42459 <> even__ev'
+R42483:42484 Prop <> ev ind
+R42486:42486 MoreInd <> n var
+R42473:42476 Prop <> even def
+R42478:42478 MoreInd <> n var
+R42539:42546 MoreInd <> nat_ind2 def
+R42539:42546 MoreInd <> nat_ind2 def
+R42578:42581 Prop <> ev_0 constr
+R42578:42581 Prop <> ev_0 constr
+R42657:42661 Prop <> ev_SS constr
+R42657:42661 Prop <> ev_SS constr
+R42689:42692 Prop <> even def
+R42703:42706 Prop <> even def
